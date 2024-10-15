@@ -1,0 +1,12 @@
+https://eksctl.io/
+
+eksctl create cluster -f eks-cluster.yaml
+
+export EKS_CLUSTER_NAME=eks-workshop  
+export AWS_REGION=ap-south-1
+
+cat eks-cluster.yaml | envsubst | eksctl create cluster -f -
+
+eksctl delete cluster --name eks-workshop
+
+https://stoxkart.awsapps.com/start#/

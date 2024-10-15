@@ -1,0 +1,85 @@
+# Terraform files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore provider binary directory
+.terraform
+
+# Ignore .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Ignore crash log files
+crash.log
+crash.*.log
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore any .tfvars files that are generated automatically for each Terraform run
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Ignore variable files as they may contain sensitive data
+*.tfvars
+*.tfvars.json
+
+# Ignore Terraform lock files
+.terraform.lock.hcl
+
+# Ignore Kubernetes temporary files
+kubeconfig*
+
+# Ignore AWS credentials file
+.aws/credentials
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore log files
+*.log
+
+# Ignore any local .env files
+*.env
+
+# Ignore any compiled binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Ignore output of terraform plan
+planfile
+
+# Ignore any backup files
+*.bak

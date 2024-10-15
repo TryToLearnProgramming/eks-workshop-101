@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-api
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cart-api
+  template:
+    metadata:
+      labels:
+        app: cart-api
+    spec:
+      containers:
+        - name: cart-api
+          image: public.ecr.aws/c4m8e4k3/node-http-server:latest
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          ports:
+            - containerPort: 4000
+          env:
+            - name: APP_NAME
+              value: "cart-api"
+            - name: PORT
+              value: "4000"
