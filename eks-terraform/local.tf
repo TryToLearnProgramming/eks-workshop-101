@@ -1,7 +1,10 @@
 locals {
-  name            = "eks-terraform-workshop"
-  cluster_version = "1.29"
+  name            = "eks-terraform-poc"
+  cluster_version = "1.30"
 
+  ami_type       = "AL2_ARM_64"   # this is a arm based image
+  instance_types = ["t4g.medium"] # this is a arm based instance
+  capacity_type  = "ON_DEMAND"
 
   vpc_cidr        = "10.0.0.0/16"
   azs             = slice(data.aws_availability_zones.available.names, 0, 2)

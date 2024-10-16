@@ -1,13 +1,28 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "20.6.0"
+  version = "20.26.0"
 
 
   cluster_name    = local.name
   cluster_version = local.cluster_version
 
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access  = true
+  # cluster_endpoint_private_access = true
+  cluster_endpoint_public_access = true
+
+  cluster_addons = {
+    eks-pod-identity-agent = {
+      most_recent = true
+    }
+    coredns = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+  }
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -34,9 +49,9 @@ module "eks" {
       labels = {
         role = "general"
       }
-
-      instance_types = ["t3.medium"]
-      capacity_type  = "ON_DEMAND"
+      ami_type       = local.ami_type
+      instance_types = local.instance_types
+      capacity_type  = local.capacity_type
     }
 
     # spot = {
@@ -86,6 +101,17 @@ module "eks" {
   tags = {
     Environment = "dev"
   }
+  # Ensure proper security group rules for the AWS Load Balancer Controller
+  # node_security_group_additional_rules = {
+  #   ingress_allow_access_from_control_plane = {
+  #     type                          = "ingress"
+  #     protocol                      = "tcp"
+  #     from_port                     = 9443
+  #     to_port                       = 9443
+  #     source_cluster_security_group = true
+  #     description                   = "Allow access from control plane to webhook port of AWS load balancer controller"
+  #   }
+  # }
 }
 
 # Output the EKS cluster ARN
